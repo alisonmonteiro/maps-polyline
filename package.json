@@ -22,5 +22,13 @@
   "bugs": {
     "url": "https://github.com/alisonmonteiro/maps-polyline/issues"
   },
-  "homepage": "https://github.com/alisonmonteiro/maps-polyline#readme"
+  "homepage": "https://github.com/alisonmonteiro/maps-polyline#readme",
+  "devDependencies": {
+    "babel-preset-es2015": "^6.13.2",
+    "gulp": "^3.9.1",
+    "gulp-babel": "^6.1.2",
+    "gulp-iife": "^0.3.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-uglify": "^2.0.0"
+  }
 }
