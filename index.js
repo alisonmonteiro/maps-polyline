@@ -1,7 +1,6 @@
-function mapsPolyline(options) {
+function mapsPolyline(map, options) {
   "use strict";
 
-  let map;
   let markers = [];
   let polylines = [];
 
@@ -47,7 +46,13 @@ function mapsPolyline(options) {
   }
 
   function addLine(items, color) {
-    const coordinates = items.map(item => item.position);
+    const coordinates = items.map(item => {
+      const lat = parseFloat(item.position.lat);
+      const lng = parseFloat(item.position.lng);
+
+      return { lat, lng };
+    });
+
     const polyline = new google.maps.Polyline({
       map: map,
       path: coordinates,
@@ -63,10 +68,15 @@ function mapsPolyline(options) {
   }
 
   function addMarker(pin, color) {
+    const position = {
+      lat: parseFloat(pin.position.lat),
+      lng: parseFloat(pin.position.lng)
+    };
+
     const marker = new google.maps.Marker({
       map: map,
       id: pin.id,
-      position: pin.position,
+      position: position,
       animation: google.maps.Animation.DROP,
       icon: {
         scale: 1,
@@ -78,9 +88,11 @@ function mapsPolyline(options) {
       }
     });
 
-    marker.addListener('click', () => {
-      // TODO: Callback
-    })
+    marker.onclick = () => {
+      if (options.callback && typeof options.callback === 'function') {
+        options.callback();
+      }
+    };
   }
 
   function cleanUpMarkers() {
@@ -115,8 +127,6 @@ function mapsPolyline(options) {
   loadMarkersAndLines();
 }
 
-mapsPolyline();
-
-HTMLElement.prototype.mapsPolyline = HTMLElement.prototype.mapsPolyline || function(options) {
-  return mapsPolyline(options);
+HTMLElement.prototype.mapsPolyline = HTMLElement.prototype.mapsPolyline || function(mapObject, options) {
+  return mapsPolyline(mapObject, options);
 }
