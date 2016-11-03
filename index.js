@@ -127,6 +127,6 @@ function mapsPolyline(map, polylinesData, options) {
   loadMarkersAndLines();
 }
 
-HTMLElement.prototype.mapsPolyline = HTMLElement.prototype.mapsPolyline || function(mapObject, options) {
-  return mapsPolyline(mapObject, options);
+HTMLElement.prototype.mapsPolyline = HTMLElement.prototype.mapsPolyline || function(mapObject, polylinesData, options) {
+  return mapsPolyline(mapObject, polylinesData, options);
 }
