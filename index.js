@@ -6,10 +6,10 @@
     exports = module.exports = factory(root, document);
   } else if (typeof define === 'function' && define.amd) {
     // AMD
-    define('Height', factory);
+    define('mapsPolyline', factory);
   } else {
     // Browser globals (root is window)
-    root.Height = factory(root, document);
+    root.mapsPolyline = factory(root, document);
   }
 })(typeof window === 'undefined' ? this : window, function (window, document) {
   "use strict";
