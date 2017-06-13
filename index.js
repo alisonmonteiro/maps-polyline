@@ -1,4 +1,4 @@
-(function (root, factory) {
+;(function (root, factory) {
   'use strict';
 
   if (typeof module === 'object' && typeof module.exports === 'object') {
@@ -18,24 +18,16 @@
     let markers = [];
     let polylines = [];
 
-    function getLineSymbol(color) {
-      return {
-        path: 'M 0,-1 0,1',
-        fillColor: color,
-        strokeColor: color,
-        strokeOpacity: 1,
-        scale: 3,
-      };
-    }
+    loadMarkersAndLines();
 
     function loadMarkersAndLines() {
-      const pinsList = getPins();
-
-      pinsList
-        .then(pins => JSON.parse(pins))
+      getPins()
+        .then(pins => {
+          return typeof pins === 'object' ? pins : JSON.parse(pins)
+        })
         .then(pins => pins['data'])
         .then(pins => {
-          if (!pins) {
+          if (! pins) {
             console.error('No data specified');
             return false;
           }
@@ -59,6 +51,30 @@
         });
     }
 
+    function getPins() {
+      return new Promise((resolve, reject) => {
+        let jsonData = polylinesData;
+
+        setTimeout(() => {
+          resolve(jsonData);
+        }, 1000)
+      });
+    }
+
+    function cleanUpLines() {
+      if (! polylines || polylines.length === 0) {
+        return;
+      }
+
+      polylines.map(polyline => {
+        polyline.setMap(null);
+      });
+    }
+
+    function cleanUpMarkers() {
+      markers = [];
+    }
+
     function addLine(items, color) {
       const coordinates = items.map(item => {
         const lat = parseFloat(item.position.lat);
@@ -79,6 +95,18 @@
       });
 
       polylines.push(polyline);
+    }
+
+    function getLineSymbol(color) {
+      const path = 'M 0,-1 0,1';
+
+      return {
+        path,
+        scale: 3,
+        fillColor: color,
+        strokeColor: color,
+        strokeOpacity: 1,
+      };
     }
 
     function addMarker(pin, color) {
@@ -108,41 +136,6 @@
         }
       };
     }
-
-    function cleanUpMarkers() {
-      if (markers.length > 0) {
-        markers.map(marker => {
-          marker.setMap(null);
-        });
-      }
-
-      markers = [];
-    }
-
-    function cleanUpLines() {
-      if (polylines.length > 0) {
-        polylines.map(polyline => {
-          polyline.setMap(null);
-        })
-      }
-    }
-
-    function getPins() {
-      // temp
-      return new Promise((resolve, reject) => {
-        let jsonData = polylinesData;
-
-        setTimeout(() => {
-          resolve(jsonData);
-        }, 1000)
-      });
-    }
-
-    loadMarkersAndLines();
-  }
-
-  HTMLElement.prototype.mapsPolyline = HTMLElement.prototype.mapsPolyline || function(mapObject, polylinesData, options) {
-    return mapsPolyline(mapObject, polylinesData, options);
   }
 
   return mapsPolyline;
