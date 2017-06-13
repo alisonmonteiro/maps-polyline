@@ -1,7 +1,7 @@
 {
   "name": "maps-polyline",
-  "version": "0.0.2",
-  "description": "",
+  "version": "0.0.3",
+  "description": "Create polylines on your map easily.",
   "main": "index.js",
   "scripts": {
     "start": "gulp build",
