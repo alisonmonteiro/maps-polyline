@@ -7,9 +7,6 @@ var iife = require('gulp-iife');
 gulp.task('build', () => {
   gulp.src('./index.js')
     .pipe(babel({presets: ['es2015']}))
-    .pipe(iife({
-      useStrict: false,
-    }))
     .pipe(uglify({ mangle: false }))
     .pipe(rename({
       suffix: '.min'
