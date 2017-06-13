@@ -7,49 +7,12 @@
 ### Usage
 
 ```javascript
-// Your map configs.
-const options = {};
 const element = document.getElementById('map');
-const map = new google.maps.Map(element, options);
+const map = new google.maps.Map(element, options); // your map with it's config
 
-const jsonData = 'YOUR_JSON_HERE';
+const jsonData = 'YOUR_JSON_HERE'; // you can use a JSON or an Object
 
-element.mapsPolyline(map, jsonData);
+mapsPolyline(map, jsonData);
 ```
 
-JSON Example:
-
-```json
-{
-  "data": [
-    {
-      "code": 1,
-      "color": "#5069b9",
-      "items": [
-        {
-          "id": 1, "position": { "lat":"-22.9127036", "lng":"-43.2261661" }
-        },
-        {
-          "id": 2, "position": { "lat":"-22.9846670", "lng":"-43.1985932" }
-        },
-        {
-          "id": 3, "position": { "lat":"-22.9517417", "lng":"-43.2108805" }
-        }
-      ]
-    },
-    {
-      "code": 2,
-      "color": "#ff0000",
-      "items": [
-        {
-          "id": 8, "position": { "lat":"-22.9492586", "lng":"-43.1545757" }
-        },
-        {
-          "id": 9, "position": { "lat":"-22.9697777", "lng":"-43.1868592" }
-        }
-      ]
-    }
-  ]
-}
-
-```
+See a [JSON Example](https://github.com/alisonmonteiro/maps-polyline/blob/master/maps-example.json)
