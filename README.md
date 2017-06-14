@@ -7,12 +7,13 @@
 ### Usage
 
 ```javascript
+const polyline = require('maps-polyline');
+
 const element = document.getElementById('map');
 const map = new google.maps.Map(element, options); // your map with it's config
+const data = {}; // you can use a JSON or an Object
 
-const jsonData = 'YOUR_JSON_HERE'; // you can use a JSON or an Object
-
-mapsPolyline(map, jsonData);
+polyline(map, data);
 ```
 
 See a [JSON Example](https://github.com/alisonmonteiro/maps-polyline/blob/master/maps-example.json)
